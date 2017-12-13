@@ -1,0 +1,43 @@
+# config context path to "/" by setting an empty string
+server:
+  contextPath:
+  port: 9002
+  basePath: /api
+
+
+# JACKSON
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  datasource:
+    url: jdbc:mysql://165.227.168.147:3306/KinopoiskDB
+    username: kinopoisk
+    password: Kinopoisk123
+    driver-class-name: com.mysql.jdbc.Driver
+    
+  h2:
+    console:
+      enabled: true
+
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+     
+
+
+jwt:
+  header: Authorization
+  secret: tasksSecret
+  expiration: 604800
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+
+#logging:
+#  level:
+#    org.springframework:
+#      security: DEBUG
