@@ -2,6 +2,8 @@ package com.kinopoisk.security.controller;
 
         import javax.servlet.http.HttpServletRequest;
 
+        import com.kinopoisk.security.model.UserToken;
+        import com.kinopoisk.security.repository.UserTokenRepository;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.beans.factory.annotation.Value;
         import org.springframework.http.ResponseEntity;
@@ -39,6 +41,12 @@ public class AuthenticationRestController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+
+    UserToken userToken = new UserToken();
+
+    @Autowired
+    private UserTokenRepository userTokenRepository;
+
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
 
@@ -54,6 +62,11 @@ public class AuthenticationRestController {
         // Reload password post-security so we can generate token
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails, device);
+
+        ((JwtUser)userDetails).getId();
+        userToken.setId(((JwtUser)userDetails).getId());
+        userToken.setToken(token);
+        userTokenRepository.save(userToken);
 
         // Return the token
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
