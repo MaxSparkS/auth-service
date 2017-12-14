@@ -4,6 +4,7 @@ package com.kinopoisk.security.controller;
 
         import com.kinopoisk.security.model.UserToken;
         import com.kinopoisk.security.repository.UserTokenRepository;
+        import io.swagger.annotations.ApiOperation;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.beans.factory.annotation.Value;
         import org.springframework.http.ResponseEntity;
@@ -48,6 +49,7 @@ public class AuthenticationRestController {
     private UserTokenRepository userTokenRepository;
 
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
+    @ApiOperation(value = "Create token and save it in database")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
 
         // Perform the security

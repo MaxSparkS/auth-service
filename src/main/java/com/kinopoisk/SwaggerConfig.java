@@ -29,12 +29,14 @@ public class SwaggerConfig {
     }
 
     private Predicate<String> postPaths() {
-        return or(regex("/.*"), regex("/.*"));
+
+        return or(regex("/api/refresh"), regex("/api/auth"),
+                regex("/api/auth/status"));
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Actor Service")
-                .description("Actor Service for Kinopoisk Application")
+        return new ApiInfoBuilder().title("Auth Service")
+                .description("Auth Service for Kinopoisk Application")
                 .termsOfServiceUrl("http://javainuse.com")
                 .contact("Max Shkurko").version("1.0").build();
     }
