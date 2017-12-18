@@ -31,7 +31,8 @@ public class SwaggerConfig {
     private Predicate<String> postPaths() {
 
         return or(regex("/api/refresh"), regex("/api/auth"),
-                regex("/api/auth/status"));
+                regex("/api/auth/status"), regex("/api/register"),
+                regex("/api/user"));
     }
 
     private ApiInfo apiInfo() {
